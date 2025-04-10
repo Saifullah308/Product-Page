@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaPulse Wireless Earbuds</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+            --success: #00b894;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .product-gallery {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            cursor: zoom-in;
+            transition: transform 0.3s;
+        }
+
+        .main-image:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            scrollbar-width: thin;
+        }
+
+        .thumbnail-container::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .thumbnail-container::-webkit-scrollbar-thumb {
+            background-color: var(--secondary);
+            border-radius: 10px;
+        }
+
+        .thumbnail {
+            width: 70px;
+            height: 70px;
+            min-width: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .product-details {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .product-title {
+            font-size: clamp(24px, 3vw, 32px);
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .product-subtitle {
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: 400;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stars {
+            color: #ffc107;
+            margin-right: 10px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .review-count {
+            color: #666;
+            font-size: clamp(12px, 2vw, 14px);
+        }
+
+        .price {
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+
+        .discount {
+            background-color: var(--accent);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: clamp(12px, 2vw, 14px);
+        }
+
+        .product-description {
+            margin-bottom: 25px;
+            color: #555;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .features {
+            margin-bottom: 25px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .feature-icon {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .color-options {
+            margin-bottom: 25px;
+        }
+
+        .color-title {
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .colors {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .color {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .color:hover, .color.selected {
+            border-color: var(--dark);
+            transform: scale(1.1);
+        }
+
+        .color-black {
+            background-color: #2d3436;
+        }
+
+        .color-white {
+            background-color: #dfe6e9;
+        }
+
+        .color-blue {
+            background-color: #0984e3;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #eee;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(14px, 2vw, 16px);
+            flex: 1 1 200px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #5649d2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f3f1ff;
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .delivery-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .delivery-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .delivery-icon {
+            color: var(--success);
+            margin-right: 10px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .video-section {
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: clamp(22px, 3vw, 28px);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .video-thumbnail:hover {
+            opacity: 0.9;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(60px, 8vw, 80px);
+            height: clamp(60px, 8vw, 80px);
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            background-color: rgba(255,255,255,1);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-icon {
+            color: var(--primary);
+            font-size: clamp(20px, 3vw, 30px);
+            margin-left: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .video-iframe {
+            width: 100%;
+            height: 50vw;
+            max-height: 500px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Image Zoom Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .zoomed-image {
+            max-width: 90%;
+            max-height: 90%;
+            width: auto;
+            height: auto;
+        }
+
+        .close-image-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .product-container {
+                gap: 30px;
+            }
+
+            .main-image {
+                max-height: 300px;
+            }
+
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+                min-width: 60px;
+            }
+
+            .action-buttons {
+                gap: 10px;
+            }
+
+            .btn {
+                flex: 1 1 100%;
+            }
+
+            .video-iframe {
+                height: 60vw;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .main-image {
+                max-height: 250px;
+            }
+
+            .thumbnail {
+                width: 50px;
+                height: 50px;
+                min-width: 50px;
+            }
+
+            .quantity-selector {
+                margin-bottom: 20px;
+            }
+
+            .delivery-info {
+                padding: 10px;
+            }
+
+            .section-title {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">NovaTech</div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#">Home</a>
+                <a href="#">Products</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+        </header>
+
+        <div class="product-container">
+            <div class="product-gallery">
+                <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="NovaPulse Wireless Earbuds" class="main-image" id="mainImage">
+                <div class="thumbnail-container">
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Earbuds Front View" class="thumbnail active">
+                    <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Earbuds Side View" class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Earbuds in Case" class="thumbnail">
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Earbuds with Phone" class="thumbnail">
+                </div>
+            </div>
+
+            <div class="product-details">
+                <h1 class="product-title">NovaPulse Wireless Earbuds</h1>
+                <p class="product-subtitle">Premium Sound Experience</p>
+                
+                <div class="rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="review-count">(1,248 reviews)</span>
+                </div>
+                
+                <div class="price">
+                    $129.99 <span class="old-price">$179.99</span> <span class="discount">28% OFF</span>
+                </div>
+                
+                <p class="product-description">
+                    Experience crystal-clear audio with NovaPulse Wireless Earbuds. Featuring active noise cancellation, 30-hour battery life, and IPX7 waterproof rating, these earbuds are perfect for music lovers and busy professionals alike.
+                </p>
+                
+                <div class="features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle feature-icon"></i>
+                        <span>Active Noise Cancellation</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle feature-icon"></i>
+                        <span>30-hour total battery life (6h + 24h case)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle feature-icon"></i>
+                        <span>IPX7 Waterproof & sweatproof</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle feature-icon"></i>
+                        <span>Bluetooth 5.2 with low latency</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle feature-icon"></i>
+                        <span>Wireless charging case</span>
+                    </div>
+                </div>
+                
+                <div class="color-options">
+                    <p class="color-title">Color:</p>
+                    <div class="colors">
+                        <div class="color color-black selected" data-color="black"></div>
+                        <div class="color color-white" data-color="white"></div>
+                        <div class="color color-blue" data-color="blue"></div>
+                    </div>
+                </div>
+                
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <input type="number" class="quantity-input" value="1" min="1">
+                    <button class="quantity-btn plus">+</button>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-shopping-cart btn-icon"></i> Add to Cart
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="far fa-heart btn-icon"></i> Wishlist
+                    </button>
+                </div>
+                
+                <div class="delivery-info">
+                    <div class="delivery-item">
+                        <i class="fas fa-truck delivery-icon"></i>
+                        <span>Free shipping on orders over $50</span>
+                    </div>
+                    <div class="delivery-item">
+                        <i class="fas fa-undo delivery-icon"></i>
+                        <span>30-day free returns</span>
+                    </div>
+                    <div class="delivery-item">
+                        <i class="fas fa-shield-alt delivery-icon"></i>
+                        <span>2-year warranty included</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2 class="section-title">Experience NovaPulse</h2>
+            <div class="video-container">
+                <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Video Thumbnail" class="video-thumbnail">
+                <div class="play-button" id="playButton">
+                    <i class="fas fa-play play-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <iframe class="video-iframe" src="https://www.youtube.com/embed/9J3VXaH3M6k?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div class="image-modal" id="imageModal">
+        <span class="close-image-modal">&times;</span>
+        <img src="" alt="Zoomed Product Image" class="zoomed-image" id="zoomedImage">
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Thumbnail image switcher
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('mainImage');
+        
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                // Remove active class from all thumbnails
+                thumbnails.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked thumbnail
+                this.classList.add('active');
+                
+                // Change main image
+                mainImage.src = this.src;
+            });
+        });
+        
+        // Color selector
+        const colors = document.querySelectorAll('.color');
+        
+        colors.forEach(color => {
+            color.addEventListener('click', function() {
+                // Remove selected class from all colors
+                colors.forEach(c => c.classList.remove('selected'));
+                
+                // Add selected class to clicked color
+                this.classList.add('selected');
+                
+                // You could change product images based on color here
+            });
+        });
+        
+        // Quantity selector
+        const minusBtn = document.querySelector('.minus');
+        const plusBtn = document.querySelector('.plus');
+        const quantityInput = document.querySelector('.quantity-input');
+        
+        minusBtn.addEventListener('click', function() {
+            let value = parseInt(quantityInput.value);
+            if (value > 1) {
+                quantityInput.value = value - 1;
+            }
+        });
+        
+        plusBtn.addEventListener('click', function() {
+            let value = parseInt(quantityInput.value);
+            quantityInput.value = value + 1;
+        });
+        
+        // Video modal
+        const playButton = document.getElementById('playButton');
+        const videoModal = document.getElementById('videoModal');
+        const closeModal = document.querySelector('.close-modal');
+        const videoIframe = document.querySelector('.video-iframe');
+        
+        playButton.addEventListener('click', function() {
+            videoModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Play the video when modal opens
+            videoIframe.src += "&autoplay=1";
+        });
+        
+        closeModal.addEventListener('click', function() {
+            videoModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Reset the video when modal closes
+            videoIframe.src = videoIframe.src.replace("&autoplay=1", "");
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === videoModal) {
+                videoModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                videoIframe.src = videoIframe.src.replace("&autoplay=1", "");
+            }
+        });
+        
+        // Image zoom modal
+        const mainImg = document.getElementById('mainImage');
+        const imageModal = document.getElementById('imageModal');
+        const zoomedImage = document.getElementById('zoomedImage');
+        const closeImageModal = document.querySelector('.close-image-modal');
+        
+        mainImg.addEventListener('click', function() {
+            zoomedImage.src = this.src;
+            imageModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeImageModal.addEventListener('click', function() {
+            imageModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close image modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === imageModal) {
+                imageModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
